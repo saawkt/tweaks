@@ -1,0 +1,30 @@
+- SB Clock Spread Spectrum: Disabled
+- Promontory Presence: Disabled
+- ECO Mode: Disabled
+- SR-IOV Support: Disabled
+- Network Stack: Disabled
+- Data Link Feature: Disabled
+- ASM Controller: Disabled
+- Soc/Uncore Mode: Enabled / Auto
+- LCLK DPM: Disabled
+- ACPI_CST C1 Declaration: Disabled
+- Global C-States Control: Disabled
+- Memory Clear: Disabled
+- DFE Read Training: Enabled
+- FFE Read Training: Enabled
+- APBDIS: 1
+- Power-Down Mode: Disabled
+- Gear-Down Mode: Auto
+- LN2 Mode: Disabled
+- L1 Stream HW Prefetcher: Enabled
+- L2 Stream HW Prefetcher: Enabled
+- CPPC: Disabled
+- CPPC Preferred Cores: Disabled
+- IOMMU: Disabled
+- Package Power Limit: 100W
+- Power-Supply Idle Control: Typical Current Idle
+- Core Performance Boost: Disabled
+- OPCache Control: Disabled
+- AMD Cool & Quiet: Disabled
+- PSS Support: Disabled
+- Memory MBIST: Disabled 

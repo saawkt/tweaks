@@ -1,0 +1,40 @@
+- CPU EIST Function: Disabled
+- Race To Halt (RTH): Disabled
+- Energy Efficient Turbo (EET): Disabled
+- Voltage Optimization: Disabled
+- VT-d: Disabled
+- Internal Graphics: Disabled
+- Intel Platform Trust Technology: Disabled (tpm)
+- Software Guard Extensions (SGX): Disabled
+- Port 60/40 Emulation: Enabled
+- Hardware Prefetcher: Enabled
+- Adjacent Cache Line Prefetch: Enabled
+- Intel C-States: Disabled
+- FCLK Frequency: 1 GHz
+- Native ASPM: Disabled
+- C6DRAM: Disabled
+- PECI: Disabled
+- HDC Control: Disabled
+- PCIe Spread Spectrum Clocking: Disabled
+- Speed-Step: Disabled
+- Intel(R) Speed Shift Technology: Disabled (caso a frequência do CPU esteja configurada manualmente)
+- PEG0 Max Link Speed: Set All PEG To Max Gen
+- PEG ASPM: Disabled All ASPM Settings
+- VGA Detection: Ignore
+- ErP Ready: Disabled
+- Security Device Support: Disabled (pode causar problemas no Windows 11)
+- Chassis Intrusion: Disabled
+- PCI Delay Optimization: Enabled
+- MSI Enabled: Enabled
+- PEP Settings: Disabled
+- PECI: Disabled
+- AVX: Enabled
+- AVX3: Enabled
+- Machine Check: Disabled
+- Interrupt Redirection Mode Selection: Round Robin
+- Energy Performance Gain: Disabled
+- Enable ACPI Configuration: Disabled
+- PCI Latency Timer: 248 Bus
+- PCI-X Latency Timer: 248 Bus
+- Maximum Payload: 4096 Bytes
+- Minimum Payload: 4096 Bytes

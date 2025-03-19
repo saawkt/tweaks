@@ -1,0 +1,20 @@
+Windows Registry Editor Version 5.00 -------- Disable AMD DVR by honest.
+
+[HKEY_CURRENT_USER\Software\AMD\DVR]
+"PerformanceMonitorOpacityWA"=dword:00000000
+"DvrEnabled"=dword:00000001
+"ActiveSceneId"="0"
+"PrevInstantReplayEnable"=dword:00000000
+"PrevInGameReplayEnabled"=dword:00000000
+"PrevInstantGifEnabled"=dword:00000000
+"RemoteServerStatus"=dword:00000000
+"ShowRSOverlay"="false"
+
+[HKEY_CURRENT_USER\Software\ATI\ACE\Settings\ADL\AppProfiles]
+"AplReloadCounter"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\Software\AMD\Install]
+"AUEP"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\Software\AUEP]
+"RSX_AUEPStatus"=dword:00000002

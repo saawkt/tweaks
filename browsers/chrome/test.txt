@@ -1,0 +1,29 @@
+Settings:
+    Privacy and security
+        Send a "Do Not Track" request - ON
+        Preload pages for faster browsing and searching - OFF (privacy concerns)
+
+    Search engine
+        Manage search engines and site search 
+            Remove bing, yahoo
+
+    Languages
+        Spell check - OFF (privacy concerns)
+
+    System
+        Continue running backgroud apps - OFF
+        Use hardware acceleration when available - OFF (if you play games with browser on)
+
+chrome://flags
+    Parallel downloading - ON (download files faster)
+    Auto Dark Mode for Web Contents - ON (personal preference, forces dark Mode)
+    GPU rasterization - ON (use GPU for faster rasterization, if you play games with browser turned off)
+    Enable Reader Mode - OFF (useless feature most of the time)
+    Tab Hover Card Images - OFF (content display of an opened tab when hovering over)
+    WinRT Geolocation Implementation - OFF (privacy concerns)
+    WebRTC remote-bound event logging - OFF (uploads event logs to Crash)
+    Verbose logging in Native Client - OFF (debugging purposes only)
+    Show Autofill predictions - OFF (privacy concerns)
+    Smooth Scrolling - OFF (not needed, more animation)
+    In-Product Help Demo Mode - OFF
+    Record web app debug info - OFF
