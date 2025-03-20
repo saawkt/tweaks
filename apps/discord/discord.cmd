@@ -1,11 +1,54 @@
 @echo off
 TITLE Discord Debloat by CatGamerOP, modded by sysnyxx
-echo Discord Debloater
+echo Starting...
+chcp 65001>nul
+setlocal enabledelayedexpansion
+for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1) do rem"') do (
+  set ESC=%%b
+)
+powershell -Command "Invoke-WebRequest-OutFile" > nul 2> nul
+cd /d "!appdata!"
+set /a startver=0
+echo:
+echo:
+for /f "delims=" %%a in ('dir /b "Discord*"') do (
+	set /a startver+=1
+	set "version[!startver!]=%%a"
+	echo                             !ESC![38;2;114;137;218m[!ESC![0m !startver! !ESC![38;2;114;137;218m]!ESC![0m %%a
+)
 
+:menu
+cls
+call :logo
+echo                                                  Programmed by !ESC![38;2;175;134;255mTeam K? 
+echo.
+echo.
+echo                                            !ESC![38;2;175;134;255m[!ESC![0m 1 !ESC![38;2;175;134;255m]!ESC![0m Debloat - Sem Supressão de Ruído   
+echo. 
+echo                                            !ESC![38;2;175;134;255m[!ESC![0m 2 !ESC![38;2;175;134;255m]!ESC![0m Debloat - Com Supressão de Ruído
+echo.
+echo.
+set /p input=""
+if "%input%"=="1" (
+    goto debloat2
+) else if "%input%"=="2" (
+    goto debloat
+) else (
+    echo invalid choice. try again.
+    pause
+    goto menu
+)
+
+:debloat2
+TASKKILL /T /F /IM Discord.exe >nul 2>&1
+cd /d %LOCALAPPDATA%\Discord\app*\modules >nul 2>&1
+for %%a in ("discord_krisp-1") do rmdir /s /q "%%~a" >nul 2>&1
+
+:debloat
 :: Needed for Update.exe
+TASKKILL /T /F /IM Discord.exe >nul 2>&1
 %LOCALAPPDATA%\Discord\Update.exe >nul 2>&1
 rmdir /s /q "%LOCALAPPDATA%\Discord\Packages" >nul 2>&1
-TASKKILL /T /F /IM Discord.exe >nul 2>&1
 
 del /f /q %LOCALAPPDATA%\Discord\Discord_updater*, %LOCALAPPDATA%\Discord\SquirrelSetup* >nul 2>&1
 
@@ -29,30 +72,43 @@ rmdir /s /q "%HOMEPATH%\appdata\Roaming\Microsoft\Windows\Start Menu\Programs\Di
 rmdir /s /q "%localappdata%\Discord\download"
 del discord_game_sdk_x64.dll /a /s
 del discord_game_sdk_x86.dll /a /s
+del /q "%localappdata%\Discord\app-*\Microsoft.Gaming.XboxApp.XboxNetwork.winmd" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\discord_wer.dll" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\vk_swiftshader.dll" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\modules\discord_voice-1\discord_voice\gpu_encoder_helper.exe" >nul 2>&1
 
 :: Modules Cleanup
 cd /d %LOCALAPPDATA%\Discord\app*\modules >nul 2>&1
-for %%a in ("discord_overlay2-2" "discord_overlay2-1" "discord_overlay-1" "discord_overlay2" "discord_desktop_overlay-1" "discord_cloudsync-1" "discord_dispatch-1" "discord_erlpack-1" "discord_game_utils-1" "discord_game_utils-2" "discord_media-1" "discord_media-2" "discord_spellcheck-1" "discord_hook-1" "discord_hook-2") do rmdir /s /q "%%~a" >nul 2>&1
+for %%a in ("discord_cloudsync-1" "discord_dispatch-1" "discord_game_utils-1" "discord_hook-1" "discord_media-1" "discord_overlay2-1" "discord_rpc-1" "discord_spellcheck-1" "discord_zstd-1") do rmdir /s /q "%%~a" >nul 2>&1
 
 :: Languages Cleanup
 cd /d %LOCALAPPDATA%\Discord\app* >nul 2>&1
 copy "locales\en-US.pak" "%LOCALAPPDATA%\Discord\" >nul 2>&1
+copy "locales\pt-BR.pak" "%LOCALAPPDATA%\Discord\" >nul 2>&1
 rmdir /s /q "locales" >nul 2>&1
 mkdir "locales" >nul 2>&1
 move "%LOCALAPPDATA%\Discord\en-US.pak" "locales" >nul 2>&1
+move "%LOCALAPPDATA%\Discord\pt-BR.pak" "locales" >nul 2>&1
 
 :: others
-cd /d %appdata%\discord >nul 2>&1
-rmdir /s /q "Cache\Cache_Data" >nul 2>&1
-rmdir /s /q "Code Cache" >nul 2>&1
-rmdir /s /q "Crashpad" >nul 2>&1
-rmdir /s /q "GPUCache" >nul 2>&1
-rmdir /s /q "shared_proto_db" >nul 2>&1
-mkdir "shared_proto_db" >nul 2>&1
-mkdir "Cache\Cache_Data" >nul 2>&1
-mkdir "Crashpad" >nul 2>&1
-mkdir "GPUCache" >nul 2>&1
-mkdir "Code Cache" >nul 2>&1
+del /q "%localappdata%\Discord\packages\Discord-*.nupkg"
+del /s /q "%localappdata%\Discord\download\*.*"
+del /s /q "%appdata%\discord\logs\*.*"
+del /s /q "%appdata%\discord\crash_reports\*.*"
+del /s /q "%appdata%\discord\Cache\*.*"
+del /s /q "%appdata%\discord\Cache\Cache_Data\*.*"
+del /s /q "%appdata%\discord\Code Cache\js\*.*"
+del /s /q "%appdata%\discord\Code Cache\wasm\*.*"
+del /s /q "%appdata%\discord\GPUCache\*.*"
+del /s /q "%appdata%\discord\Sessions\*.*"
+reg delete "HKEY_CURRENT_USER\SOFTWARE\Discord\Modules" /f
+reg delete "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run" /v Discord /f
+reg delete "HKEY_CURRENT_USER\Software\Discord\HardwareCapture" /f
+reg delete "HKEY_CURRENT_USER\Software\Discord\ErrorReporting" /f
+reg delete "HKEY_CURRENT_USER\Software\Discord\GameIntegration" /f
+reg delete "HKEY_CURRENT_USER\Software\Discord\Games" /f
+reg delete "HKEY_CURRENT_USER\Software\Discord\Debug" /f
+reg delete "HKEY_CURRENT_USER\SOFTWARE\Discord\Update" /f
 
 :: OpenAsar
 echo downloading OpenAsar
@@ -91,3 +147,24 @@ echo.
 echo If Discord does not start in the future, reinstall it from the internet.
 
 timeout 3 >nul 2>&1
+exit /b
+
+:logo
+:logo
+echo.
+echo.
+echo.
+for %%a in (
+"        ▓█████▄  ██▓  ██████  ▄████▄   ▒█████   ██▀███  ▓█████▄  "
+"        ▒██▀ ██▌▓██▒▒██    ░▒██▀ ▀█  ▒██▒  ██▒▓██ ░██▒▒  ██▀ ██▌ "
+"        ░██   █▌▒██▒░ ▓██▄   ░▓█    ▄ ▒██░  ██▒▓██ ░▄█ ░░██   █▌ "
+"        ░▓█▄  █▌░██░  ▒   ██▒▒▓▓▄ ▄██▒▒██   ██░▒██▀▀█▄  ░▓█▄  █▌ "
+"        ░▒████▓ ░██░▒██████▒▒▒ ▓███▀ ░░ ████▓▒░░██▓ ▒██▒░▒████▓  "
+"        ▒▒▓  ▒ ░▓  ▒ ▒▓▒ ▒ ░░ ░▒ ▒  ░░ ▒░▒░▒░ ░ ▒▓ ░▒▓░ ▒▒▓  ▒   "
+"        ░ ▒  ▒  ▒ ░░ ░▒  ░ ░  ░  ▒     ░ ▒ ▒░   ░▒ ░ ▒░ ░ ▒  ▒   "
+"        ░ ░  ░  ▒ ░░  ░  ░  ░        ░ ░ ░ ▒    ░░   ░  ░ ░  ░   "
+"        ░     ░        ░  ░ ░          ░ ░     ░        ░        "
+"        ░                   ░                           ░        "
+""
+) do echo                           !ESC![38;2;175;134;255m%%~a!ESC![0m
+echo.
