@@ -1,0 +1,76 @@
+acpipagr – ACPI power aggregator – manages power-saving states. Safe to disable if you’re not using advanced ACPI features.
+AcpiPmi – ACPI power management interface. Usually safe to disable unless running old power management software.
+acpitime – ACPI timer driver – legacy support. Safe to disable on modern systems.
+AppvVemgr – App-V client for Microsoft application virtualization – disable if not using App-V.
+bam – Background Activity Moderator – can improve latency. Safe to disable.
+beep – PC speaker beep – harmless to disable unless using internal beep signals.
+bowser – Browser service – legacy LAN communication. Safe to disable for non-domain PCs.
+cdrom – CD-ROM driver – disable if you don’t use optical drives.
+cdfs – CD filesystem – disable if not using ISO/CD-based file mounts.
+CSC – Client Side Caching – affects offline files. Safe for home users.
+dam – Direct memory access mapper – legacy. Usually safe to disable.
+fdc – Floppy disk controller – safe to disable unless using old hardware.
+FileCrypt – Encrypts file data – disable if you don’t use EFS. Can block encrypted files.
+FileInfo – File system metadata manager – needed for NTFS. Risky to disable.
+flpydisk – Floppy disk support – legacy. Safe to disable.
+gencounter – General counter timer – mostly unused now. Safe to disable.
+HidIr – IR device – safe to disable unless using infrared devices.
+hvcrash – Hyper-V crash dump service – safe unless you use VMs.
+hvservice – Hyper-V service platform – disable if not using Hyper-V.
+i8042prt – Legacy PS/2 keyboard/mouse – disable if only using USB.
+iaStorV – Intel RAID driver – disable if not using Intel RAID setup.
+iorate – Disk performance logging – safe to disable for latency.
+MEIx64 – Intel Management Engine Interface – disable may break features but lowers latency.
+mssmbios – System Management BIOS – used for telemetry. Safe to disable.
+NdisCap – Network diagnostics capture – safe to disable unless debugging.
+NdisVirtualBus – Virtual network bus – safe if not using advanced NIC features.
+Ndu – Windows Network Data Usage Monitoring – can be disabled.
+pcw – Performance counters – safe to disable unless debugging.
+rdpbus – Remote Desktop bus – safe if RDP isn’t used.
+scfilter – Smart card filter – disable if not using smart cards.
+sfloppy – Floppy disk driver – safe to disable.
+SgrmAgent – Secure Guard Manager – security telemetry. Safe to disable.
+udfs – UDF filesystem – safe unless mounting DVDs/UDF volumes.
+UevAgentDriver – UE-V agent – disable unless using User Experience Virtualization.
+umbus – Universal bus enumerator – mostly legacy. Safe to disable.
+Vid – Video decoder driver – disable if not using built-in capture/decoding.
+wanarp – Legacy WAN protocol – safe to disable.
+wanarpv6 – Legacy IPv6 WAN protocol – safe to disable.
+amdsata – AMD SATA controller – disable if using NVMe or other storage.
+amdsb – Legacy AMD southbridge controller – safe if unused.
+amdxata – Old AMD storage controller – usually safe.
+arcsas – RAID/SAS controller – disable if not using it.
+atapi – IDE/ATAPI driver – safe if only using NVMe.
+b06bdrv – Broadcom Bluetooth – disable if no BT hardware.
+BthA2dp – Bluetooth audio streaming – disable if no BT.
+BthEnum – Bluetooth device enumeration – disable if no BT.
+BthHFEnum – Bluetooth hands-free – disable if no BT.
+BthLEEnum – Bluetooth low energy – disable if no BT.
+BthMini – Bluetooth miniport – disable if no BT.
+BTHMODEM – Bluetooth modem – disable if no BT.
+BTHPORT – Bluetooth port handler – disable if no BT.
+BTHUSB – Bluetooth USB interface – disable if no BT.
+bttflt – Bluetooth filter – disable if no BT.
+cht4tiscsi – Chelsio iSCSI – disable unless using enterprise iSCSI storage.
+cht4vbd – Chelsio VBD – same as above.
+circlass – Consumer IR – disable unless using IR hardware.
+ebdrv – Embedded bus driver – disable with caution, affects networking on some NICs.
+HidBth – Bluetooth HID support – disable if no BT.
+hyperkbd – Hyper-V synthetic keyboard – disable if no Hyper-V.
+HyperVideo – Hyper-V display interface – disable if no Hyper-V.
+ItSas35i – SAS/SATA device – disable if not using it.
+Microsoft_Bluetooth_AvrcpTransport – Bluetooth AVRCP transport – disable if no BT.
+QWAVEdrv – Multimedia sound profile – disable unless audio troubleshooting.
+RFCOMM – Bluetooth serial – disable if no BT.
+SpatialGraphFilter – 3D spatial graph – AR/VR only. Disable if unused.
+Synth3dVsc – Synthetic 3D virtual device – disable if no Hyper-V.
+TsUsbFlt – USB filter – disable unless using specific virtualization.
+TsUsbGD – USB generic – same as above.
+tsusbhub – USB hub emulation – safe unless VM USB pass-through.
+usbcir – IR USB controller – disable unless using IR remote.
+usbprint – USB printer – disable if no printer.
+vmgid – Virtual Machine GUID – disable unless VM-related software.
+vwifibus – Virtual Wi-Fi bus – disable if not using hosted networks.
+vwififlt – Virtual Wi-Fi filter – same as above.
+vwifimp – Virtual Wi-Fi manager – same as above.
+WacomPen – Wacom pen – disable unless using a drawing tablet.
