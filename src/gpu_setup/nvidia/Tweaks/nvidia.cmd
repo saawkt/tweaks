@@ -82,7 +82,8 @@ echo.
 echo Choose an option:
 echo 1 - Advanced
 echo 2 - Latency 
-echo 3 - Main Profiles
+echo 3 - Lawliet's custom
+echo 4 - Main Profiles
 set /p input="Enter your choice (1 or 2): "
 
 if "%input%"=="1" (
@@ -90,11 +91,13 @@ if "%input%"=="1" (
 ) else if "%input%"=="2" (
     goto latency
 ) else if "%input%"=="3" (
+    goto lawliet
+) else if "%input%"=="4" (
     goto menu
 ) else (
     echo invalid choice. try again.
     pause
-    goto menu
+    goto adprofiles
 )
 
 :latency
@@ -118,5 +121,17 @@ del /f /q advanced.nip >nul 2>&1
 echo done
 timeout /t 2 /nobreak >NUL 2>&1
 exit /b
+
+:lawliet
+cls
+powershell Invoke-WebRequest -Uri "https://raw.githubusercontent.com/wasynxyxxk/files/refs/heads/main/nvidia/lawliet.nip" -OutFile "C:\Windows\Temp\lawliet.nip"
+"C:\Windows\Temp\npi.exe" "C:\Windows\Temp\lawliet.nip" >nul 2>&1
+cd /d C:\Windows\Temp >nul 2>&1
+del /f /q npi.exe >nul 2>&1
+del /f /q lawliet.nip >nul 2>&1
+echo done
+timeout /t 2 /nobreak >NUL 2>&1
+exit /b
+
 
 
