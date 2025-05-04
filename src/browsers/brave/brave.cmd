@@ -4,7 +4,7 @@ setlocal enabledelayedexpansion
 
 :: installer
 echo downloading brave
-powershell Invoke-WebRequest -Uri "https://github.com/brave/brave-browser/releases/download/v1.69.162/BraveBrowserStandaloneSilentSetup.exe" -OutFile "C:\Windows\Temp\brave.exe"
+powershell Invoke-WebRequest -Uri "https://referrals.brave.com/latest/BraveBrowserSetup-BRV010.exe" -OutFile "C:\Windows\Temp\brave.exe"
 start /b /wait "" "C:\Windows\Temp\brave.exe" >nul 2>&1
 del "C:\Windows\Temp\brave.exe"
 
@@ -33,27 +33,27 @@ rmdir /S /Q "C:\Program Files (x86)\BraveSoftware\CrashReports"
 rmdir /S /Q "C:\Program Files (x86)\BraveSoftware\Temp"
 rmdir "C:\Program Files (x86)\BraveSoftware" /s /q
 rmdir /S /Q "%userprofile%\AppData\Local\BraveSoftware\Update"
-del "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\128.1.69.162\notification_helper.exe" >nul 2>&1
-rmdir /S /Q "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\128.1.69.162\Installer"
-del "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\128.1.69.162\eventlog_provider.dll"
-del "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\128.1.69.162\chrome_pwa_launcher.exe"
+del "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\1*\notification_helper.exe" >nul 2>&1
+rmdir /S /Q "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\1*\Installer"
+del "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\1*\eventlog_provider.dll"
+del "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\1*\chrome_pwa_launcher.exe"
 cd /d %userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application >nul 2>&1
 del chrmstp.exe /a /s
 rmdir "C:\ProgramData\BraveSoftware" /s /q
 rmdir /s /q "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\SetupMetrics" >nul 2>&1
 
-cd /d %userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\128.1.69.162 >nul 2>&1
+cd /d %userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\1* >nul 2>&1
 copy "Locales\en-US.pak" "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application" >nul 2>&1
 rmdir /s /q "Locales" >nul 2>&1
 mkdir "Locales" >nul 2>&1
 move "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\en-US.pak" "Locales" >nul 2>&1
 
-del "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\128.1.69.162\brave_vpn_helper.exe"
-rmdir /S /Q "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\128.1.69.162\BraveVpnWireguardService"
+del "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\1*\brave_vpn_helper.exe"
+rmdir /S /Q "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\1*\BraveVpnWireguardService"
 
-del "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\128.1.69.162\elevation_service.exe"
+del "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\1*\elevation_service.exe"
 
-rmdir /S /Q "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\128.1.69.162\Extensions"
+rmdir /S /Q "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\1*\Extensions"
 
 :: cleaning reg
 reg delete "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\BraveSoftwareUpdateTaskMachineCore" /f
