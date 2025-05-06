@@ -41,7 +41,7 @@ if exist "%ssteam%\steamapps\common\Steamworks Shared\_CommonRedist\DirectX\Jun2
 if exist "%ssteam%\steamapps\common\Steamworks Shared\_CommonRedist\vcredist\2019" rmdir /s /q "%ssteam%\steamapps\common\Steamworks Shared\_CommonRedist\vcredist\2019"
 
 set "ssteam=%ProgramFiles(x86)%\Steam"
-set "content=start "" "%ssteam%\steam.exe" -dev -console -nofriendsui -no-dwrite -nointro -nobigpicture -nofasthtml -nocrashmonitor -nooverlayui -noshaders -no-shared-textures -disablehighdpi -cef-single-process -cef-in-process-gpu -cef-disable-js-logging -single_core -cef-disable-d3d11 -cef-disable-sandbox -cef-disable-seccomp-sandbox -disable-winh264 -no-cef-sandbox -vrdisable -cef-disable-breakpad -noverifyfiles -nobootstrapupdate -skipinitialbootstrap -norepairfiles -low -cef-disable-breakpad -overridepackageurl steam://open/minigameslist"
+set "content=start "" "%ssteam%\steam.exe" -silent
 set "desktop=%USERPROFILE%\Desktop"
 set "batchfp=%desktop%\Steam.bat"
 echo %content% > "%batchfp%"
