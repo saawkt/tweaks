@@ -52,11 +52,18 @@ rmdir /s /q "%LOCALAPPDATA%\Discord\Packages" >nul 2>&1
 
 del /f /q %LOCALAPPDATA%\Discord\Discord_updater*, %LOCALAPPDATA%\Discord\SquirrelSetup* >nul 2>&1
 
-:: Create a bat file to start Discord with parameters
-cd /d %LOCALAPPDATA%\Discord
-@echo off
-echo cd /d "" "%LOCALAPPDATA%\Discord\app*" > StartDiscord.bat
-echo start "" "Discord.exe" ) >> StartDiscord.bat
+set "baseDir=%localappdata%\discord"
+for /d %%A in ("%baseDir%\app*") do (
+    set "appFolder=%%~fA"
+    goto found
+)
+
+echo Discord not found
+pause
+goto end
+
+:found
+powershell -Command "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\Desktop\Discord Debloated.lnk\"); $s.TargetPath = \"%appFolder%\Discord.exe\"; $s.Save()"
 
 cd /d %LOCALAPPDATA%\Discord >nul 2>&1
 del /f /q Update.exe >nul 2>&1
@@ -147,7 +154,12 @@ echo.
 echo If Discord does not start in the future, reinstall it from the internet.
 
 timeout 3 >nul 2>&1
+endlocal
 exit /b
+
+:end
+endlocal
+exit /b 
 
 :logo
 :logo
