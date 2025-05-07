@@ -41,7 +41,7 @@ if exist "%ssteam%\steamapps\common\Steamworks Shared\_CommonRedist\DirectX\Jun2
 if exist "%ssteam%\steamapps\common\Steamworks Shared\_CommonRedist\vcredist\2019" rmdir /s /q "%ssteam%\steamapps\common\Steamworks Shared\_CommonRedist\vcredist\2019"
 
 set "ssteam=%ProgramFiles(x86)%\Steam"
-set "content=start "" "%ssteam%\steam.exe" -silent
+set "content=start "" "%ssteam%\steam.exe" -silent"
 set "desktop=%USERPROFILE%\Desktop"
 set "batchfp=%desktop%\Steam.bat"
 echo %content% > "%batchfp%"
