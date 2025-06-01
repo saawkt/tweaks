@@ -23,9 +23,11 @@ call :logo
 echo                                                  Programmed by !ESC![38;2;175;134;255mTeam K? 
 echo.
 echo.
-echo                                            !ESC![38;2;175;134;255m[!ESC![0m 1 !ESC![38;2;175;134;255m]!ESC![0m Debloat - Sem Supressão de Ruído   
+echo                                            !ESC![38;2;175;134;255m[!ESC![0m 1 !ESC![38;2;175;134;255m]!ESC![0m Debloat - Without Noise Suppression   
 echo. 
-echo                                            !ESC![38;2;175;134;255m[!ESC![0m 2 !ESC![38;2;175;134;255m]!ESC![0m Debloat - Com Supressão de Ruído
+echo                                            !ESC![38;2;175;134;255m[!ESC![0m 2 !ESC![38;2;175;134;255m]!ESC![0m Debloat - With Noise Suppression
+echo.
+echo                                            !ESC![38;2;175;134;255m[!ESC![0m 3 !ESC![38;2;175;134;255m]!ESC![0m Debloat - Delete RPC module
 echo.
 echo.
 set /p input=""
@@ -33,6 +35,8 @@ if "%input%"=="1" (
     goto debloat2
 ) else if "%input%"=="2" (
     goto debloat
+) else if "%input%"=="3" (
+    goto rpc
 ) else (
     echo invalid choice. try again.
     pause
@@ -52,18 +56,11 @@ rmdir /s /q "%LOCALAPPDATA%\Discord\Packages" >nul 2>&1
 
 del /f /q %LOCALAPPDATA%\Discord\Discord_updater*, %LOCALAPPDATA%\Discord\SquirrelSetup* >nul 2>&1
 
-set "baseDir=%localappdata%\discord"
-for /d %%A in ("%baseDir%\app*") do (
-    set "appFolder=%%~fA"
-    goto found
-)
-
-echo Discord not found
-pause
-goto end
-
-:found
-powershell -Command "$s = (New-Object -COM WScript.Shell).CreateShortcut(\"$env:USERPROFILE\Desktop\Discord Debloated.lnk\"); $s.TargetPath = \"%appFolder%\Discord.exe\"; $s.Save()"
+:: Create a bat file to start Discord with parameters
+cd /d %LOCALAPPDATA%\Discord
+@echo off
+echo cd /d "" "%LOCALAPPDATA%\Discord\app*" > StartDiscord.bat
+echo start "" "Discord.exe" --ProcessStart Discord.exe --disable-animations --disable-extensions --disable-logging --disable-software-rasterizer --disable-updater --disable-web-security --enable-gpu-rasterization --enable-zero-copy --ignore-gpu-blocklist --no-sandbox ) >> StartDiscord.bat
 
 cd /d %LOCALAPPDATA%\Discord >nul 2>&1
 del /f /q Update.exe >nul 2>&1
@@ -81,12 +78,35 @@ del discord_game_sdk_x64.dll /a /s
 del discord_game_sdk_x86.dll /a /s
 del /q "%localappdata%\Discord\app-*\Microsoft.Gaming.XboxApp.XboxNetwork.winmd" >nul 2>&1
 del /q "%localappdata%\Discord\app-*\discord_wer.dll" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\d3dcompiler_47.dll" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\Discord.exe.sig" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\libEGL.dll" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\libGLESv2.dll" >nul 2>&1
 del /q "%localappdata%\Discord\app-*\vk_swiftshader.dll" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\vulkan-1.dll" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\snapshot_blob.bin" >nul 2>&1
 del /q "%localappdata%\Discord\app-*\modules\discord_voice-1\discord_voice\gpu_encoder_helper.exe" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\modules\discord_voice-1\discord_voice\selfie_segmentation.tflite" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\modules\discord_voice-1\discord_voice\selfie_segmentation_landscape.tflite" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\modules\discord_utils-1\discord_utils\manifest.json" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\modules\discord_utils-1\discord_utils\node_modules\bindings\LICENSE.md" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\modules\discord_utils-1\discord_utils\node_modules\bindings\README.md" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\modules\discord_utils-1\discord_utils\node_modules\file-uri-to-path\.npmignore" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\modules\discord_utils-1\discord_utils\node_modules\file-uri-to-path\History.md" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\modules\discord_utils-1\discord_utils\node_modules\file-uri-to-path\LICENSE" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\modules\discord_utils-1\discord_utils\node_modules\file-uri-to-path\package.json" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\modules\discord_utils-1\discord_utils\node_modules\file-uri-to-path\README.md" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\modules\discord_utils-1\discord_utils\node_modules\windows-notification-state\LICENSE" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\modules\discord_utils-1\discord_utils\node_modules\windows-notification-state\README.md" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\modules\discord_utils-1\discord_utils\package.json" >nul 2>&1
+cd /d %localappdata%\Discord\app*\modules\discord_utils-1\discord_utils\node_modules
+rmdir /s /q "node-addon-api" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\modules\discord_voice-1\discord_voice\manifest.json" >nul 2>&1
+del /q "%localappdata%\Discord\app-*\modules\discord_voice-1\discord_voice\package.json" >nul 2>&1
 
 :: Modules Cleanup
 cd /d %LOCALAPPDATA%\Discord\app*\modules >nul 2>&1
-for %%a in ("discord_cloudsync-1" "discord_dispatch-1" "discord_game_utils-1" "discord_hook-1" "discord_media-1" "discord_overlay2-1" "discord_rpc-1" "discord_spellcheck-1" "discord_zstd-1") do rmdir /s /q "%%~a" >nul 2>&1
+for %%a in ("discord_modules-1" "discord_erlpack-1" "discord_desktop_overlay-1" "discord_overlay2-2" "discord_notifications-1" "discord_game_utils" "discord_cloudsync-1" "discord_dispatch-1" "discord_game_utils-1" "discord_hook-1" "discord_media-1" "discord_overlay2-1" "discord_rpc-1" "discord_spellcheck-1" "discord_zstd-1") do rmdir /s /q "%%~a" >nul 2>&1
 
 :: Languages Cleanup
 cd /d %LOCALAPPDATA%\Discord\app* >nul 2>&1
@@ -126,12 +146,6 @@ cd /d %LOCALAPPDATA%\Discord\app* >nul 2>&1
 move "C:\Windows\Temp\app.asar" "resources" >nul 2>&1
 cls
 
-:: config discord + openasar
-:: curl -g -k -L -# -o "C:\Windows\Temp\settings.json" "https://cdn.discordapp.com/attachments/1342571971627585606/1342572035284406282/settings.json?ex=67ba1f24&is=67b8cda4&hm=635fad0d392e5281b3433a2b25621e3545e08917335e9094df06385603e6f785&" >NUL 2>&1
-:: cd /d %appdata%\discord >nul 2>&1
-:: del /f /q settings.json >nul 2>&1
-:: move "C:\Windows\Temp\settings.json" "" >nul 2>&1
-
 :: config discord + openasar local
 (
   echo {
@@ -154,14 +168,13 @@ echo.
 echo If Discord does not start in the future, reinstall it from the internet.
 
 timeout 3 >nul 2>&1
-endlocal
 exit /b
 
-:end
-endlocal
-exit /b 
+:rpc 
+TASKKILL /T /F /IM Discord.exe >nul 2>&1
+cd /d %LOCALAPPDATA%\Discord\app*\modules >nul 2>&1
+for %%a in ("discord_rpc-1") do rmdir /s /q "%%~a" >nul 2>&1
 
-:logo
 :logo
 echo.
 echo.
@@ -180,3 +193,5 @@ for %%a in (
 ""
 ) do echo                           !ESC![38;2;175;134;255m%%~a!ESC![0m
 echo.
+
+
