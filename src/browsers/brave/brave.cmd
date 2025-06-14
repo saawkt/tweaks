@@ -9,6 +9,7 @@ start /b /wait "" "C:\Windows\Temp\brave.exe" >nul 2>&1
 del "C:\Windows\Temp\brave.exe"
 
 :: close brave
+taskkill /f /im brave.exe /t 
 taskkill /f /IM BraveUpdate.exe /t
 taskkill /f /IM brave_installer-x64.exe /t
 taskkill /f /IM BraveCrashHandler.exe /t
@@ -30,10 +31,14 @@ sc delete BraveElevationService
 echo deleting useless files
 rmdir /s /q "C:\Program Files (x86)\BraveSoftware" >nul 2>&1
 rmdir /s /q "%userprofile%\AppData\Local\BraveSoftware\Update" >nul 2>&1
-rmdir /s /q "C:\Program Files\BraveSoftware\Brave-Browser\Application\1*\Installer" >nul 2>&1
 rmdir /s /q "C:\Program Files\BraveSoftware\Brave-Browser\Application\SetupMetrics" >nul 2>&1
-rmdir /s /q "C:\Program Files\BraveSoftware\Brave-Browser\Application\1*\BraveVpnWireguardService" >nul 2>&1
-rmdir /s /q "C:\Program Files\BraveSoftware\Brave-Browser\Application\1*\Extensions" >nul 2>&1
+cd /d "C:\Program Files\BraveSoftware\Brave-Browser\Application\1*"
+rmdir /s /q "Installer" >nul 2>&1
+rmdir /s /q "BraveVpnWireguardService" >nul 2>&1
+rmdir /s /q "Extensions" >nul 2>&1
+rmdir /s /q "IwaKeyDistribution" >nul 2>&1
+rmdir /s /q "PrivacySandboxAttestationsPreloaded" >nul 2>&1
+rmdir /s /q "MEIPreload" >nul 2>&1
 rmdir /s /q "C:\ProgramData\BraveSoftware" >nul 2>&1
 cd /d "C:\Program Files\BraveSoftware\Brave-Browser\Application\1*"
 del "notification_helper.exe" >nul 2>&1
@@ -41,8 +46,18 @@ del "eventlog_provider.dll" >nul 2>&1
 del "chrome_pwa_launcher.exe" >nul 2>&1
 del "brave_vpn_helper.exe" >nul 2>&1
 del "elevation_service.exe" >nul 2>&1
+del "vulkan-1.dll" >nul 2>&1
+del "libEGL.dll" >nul 2>&1
+del "libGLESv2.dll" >nul 2>&1
+del "d3dcompiler_47.dll" >nul 2>&1
+del "dxcompiler.dll" >nul 2>&1
+del "dxil.dll" >nul 2>&1
+del "chrome_100_percent.pak" >nul 2>&1
+del "chrome_200_percent.pak" >nul 2>&1
+del "brave_200_percent.pak" >nul 2>&1
+del "brave_100_percent.pak" >nul 2>&1
 cd /d "C:\Program Files\BraveSoftware\Brave-Browser\Application"
-del "chrmstp.exe" /a /s
+del "chrmstp.exe" /a /s >nul 2>&1
 
 :: Locales
 cd /d "C:\Program Files\BraveSoftware\Brave-Browser\Application\1*" >nul 2>&1
