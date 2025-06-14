@@ -3,23 +3,23 @@ title brave installer and debloater by sysnyxx
 setlocal enabledelayedexpansion
 
 :: installer
-echo downloading brave
+echo Installing Brave
 powershell Invoke-WebRequest -Uri "https://referrals.brave.com/latest/BraveBrowserSetup-BRV010.exe" -OutFile "C:\Windows\Temp\brave.exe"
 start /b /wait "" "C:\Windows\Temp\brave.exe" >nul 2>&1
 del "C:\Windows\Temp\brave.exe"
 
 :: close brave
-taskkill /IM BraveUpdate.exe /F
-taskkill /IM brave_installer-x64.exe /F
-taskkill /IM BraveCrashHandler.exe /F
-taskkill /IM BraveCrashHandler64.exe /F
-taskkill /IM BraveCrashHandlerArm64.exe /F
-taskkill /IM BraveUpdateBroker.exe /F
-taskkill /IM BraveUpdateCore.exe /F
-taskkill /IM BraveUpdateOnDemand.exe /F
-taskkill /IM BraveUpdateSetup.exe /F
-taskkill /IM BraveUpdateComRegisterShell64 /F
-taskkill /IM BraveUpdateComRegisterShellArm64 /F
+taskkill /f /IM BraveUpdate.exe /t
+taskkill /f /IM brave_installer-x64.exe /t
+taskkill /f /IM BraveCrashHandler.exe /t
+taskkill /f /IM BraveCrashHandler64.exe /t
+taskkill /f /IM BraveCrashHandlerArm64.exe /t
+taskkill /f /IM BraveUpdateBroker.exe /t
+taskkill /f /IM BraveUpdateCore.exe /t
+taskkill /f /IM BraveUpdateOnDemand.exe /t
+taskkill /f /IM BraveUpdateSetup.exe /t
+taskkill /f /IM BraveUpdateComRegisterShell64 /t
+taskkill /f /IM BraveUpdateComRegisterShellArm64 /t
 
 :: del services
 sc delete brave
@@ -28,32 +28,28 @@ sc delete BraveElevationService
 
 :: debloater
 echo deleting useless files
-rmdir /S /Q "C:\Program Files (x86)\BraveSoftware\Update"
-rmdir /S /Q "C:\Program Files (x86)\BraveSoftware\CrashReports"
-rmdir /S /Q "C:\Program Files (x86)\BraveSoftware\Temp"
-rmdir "C:\Program Files (x86)\BraveSoftware" /s /q
-rmdir /S /Q "%userprofile%\AppData\Local\BraveSoftware\Update"
-del "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\1*\notification_helper.exe" >nul 2>&1
-rmdir /S /Q "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\1*\Installer"
-del "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\1*\eventlog_provider.dll"
-del "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\1*\chrome_pwa_launcher.exe"
-cd /d %userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application >nul 2>&1
-del chrmstp.exe /a /s
-rmdir "C:\ProgramData\BraveSoftware" /s /q
-rmdir /s /q "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\SetupMetrics" >nul 2>&1
+rmdir /s /q "C:\Program Files (x86)\BraveSoftware" >nul 2>&1
+rmdir /s /q "%userprofile%\AppData\Local\BraveSoftware\Update" >nul 2>&1
+rmdir /s /q "C:\Program Files\BraveSoftware\Brave-Browser\Application\1*\Installer" >nul 2>&1
+rmdir /s /q "C:\Program Files\BraveSoftware\Brave-Browser\Application\SetupMetrics" >nul 2>&1
+rmdir /s /q "C:\Program Files\BraveSoftware\Brave-Browser\Application\1*\BraveVpnWireguardService" >nul 2>&1
+rmdir /s /q "C:\Program Files\BraveSoftware\Brave-Browser\Application\1*\Extensions" >nul 2>&1
+rmdir /s /q "C:\ProgramData\BraveSoftware" >nul 2>&1
+cd /d "C:\Program Files\BraveSoftware\Brave-Browser\Application\1*"
+del "notification_helper.exe" >nul 2>&1
+del "eventlog_provider.dll" >nul 2>&1
+del "chrome_pwa_launcher.exe" >nul 2>&1
+del "brave_vpn_helper.exe" >nul 2>&1
+del "elevation_service.exe" >nul 2>&1
+cd /d "C:\Program Files\BraveSoftware\Brave-Browser\Application"
+del "chrmstp.exe" /a /s
 
-cd /d %userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\1* >nul 2>&1
-copy "Locales\en-US.pak" "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application" >nul 2>&1
+:: Locales
+cd /d "C:\Program Files\BraveSoftware\Brave-Browser\Application\1*" >nul 2>&1
+copy "Locales\en-US.pak" "C:\Program Files\BraveSoftware\Brave-Browser\Application" >nul 2>&1
 rmdir /s /q "Locales" >nul 2>&1
 mkdir "Locales" >nul 2>&1
-move "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\en-US.pak" "Locales" >nul 2>&1
-
-del "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\1*\brave_vpn_helper.exe"
-rmdir /S /Q "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\1*\BraveVpnWireguardService"
-
-del "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\1*\elevation_service.exe"
-
-rmdir /S /Q "%userprofile%\AppData\Local\BraveSoftware\Brave-Browser\Application\1*\Extensions"
+move "C:\Program Files\BraveSoftware\Brave-Browser\Application\en-US.pak" "Locales" >nul 2>&1
 
 :: cleaning reg
 reg delete "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\BraveSoftwareUpdateTaskMachineCore" /f
@@ -71,21 +67,11 @@ reg delete "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache
 reg delete "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\{56CA197F-543C-40DC-953C-B9C6196C92A5}" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "BraveVpnWireguardService" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run" /v "BraveVpnWireguardService" /f
-
 schtasks /delete /tn "BraveSoftwareUpdateTaskMachineCore{2320C90E-9617-4C25-88E0-CC10B8F3B6BB}" /f
 schtasks /delete /tn "BraveSoftwareUpdateTaskMachineUA{FD1FD78D-BD51-4A16-9F47-EE6518C2D038}" /f
 schtasks /delete /tn "BraveSoftwareUpdateTaskMachineCore{1B4ECC99-A065-4BA8-B4B5-6828D11834AC}" /f
 schtasks /delete /tn "BraveSoftwareUpdateTaskMachineUA{C2741D3F-2DB1-4D3D-9679-8AF7E44826F3}" /f
 cls
-
-:: flags
-echo downloading flags
-echo.
-powershell Invoke-WebRequest -Uri "https://github.com/5Noxi/Files/releases/download/Brave-Files/Noverse_Brave-Flags.txt" -OutFile "%USERPROFILE%\Documents\brave-flags-noverse.txt"
-echo se quiser as flags estao em %USERPROFILE%\Documents\brave-flags-noverse.txt
-echo the flags are located in %USERPROFILE%\Documents\brave-flags-noverse.txt
-echo brave://flags
-echo.
 
 echo done
 pause
